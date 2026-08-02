@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Love.css</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Fondo con glow rojo -->
+  <div class="glow-bg" aria-hidden="true">
+    <div class="glow-core"></div>
+    <div class="glow-ring"></div>
+  </div>
+
+  <!-- Contenedor de partículas / pétalos flotantes -->
+  <div id="particles-layer" aria-hidden="true"></div>
+
+  <main class="stage">
+
+    <!-- ===================== PANTALLA 1: TARJETA INICIAL ===================== -->
+    <section id="screen-start" class="screen screen--start">
+      <div class="card">
+        <div class="card-rose-mini" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="mini-rose-svg">
+            <use href="#rose-icon-shape"></use>
+          </svg>
+        </div>
+        <h1 class="brand-title">Love<span class="brand-dot">.css</span></h1>
+        <p class="brand-subtitle">Ready to bloom?</p>
+        <button id="bloom-btn" class="bloom-btn" type="button">
+          <span>Tap to bloom</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== PANTALLA 2: FLORECIMIENTO ===================== -->
+    <section id="screen-bloom" class="screen screen--bloom" hidden>
+
+      <div class="rose-wrapper" id="rose-wrapper">
+        <!-- La rosa se construye dinámicamente en script.js dentro de este SVG -->
+        <svg id="rose-svg" class="rose-svg" viewBox="0 0 400 600" preserveAspectRatio="xMidYMax meet">
+          <defs>
+            <radialGradient id="petalGradientOuter" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#ff8fa3" />
+              <stop offset="45%" stop-color="#e8324d" />
+              <stop offset="100%" stop-color="#7a0f1f" />
+            </radialGradient>
+            <radialGradient id="petalGradientInner" cx="35%" cy="25%" r="75%">
+              <stop offset="0%" stop-color="#ffb3c1" />
+              <stop offset="50%" stop-color="#f2465f" />
+              <stop offset="100%" stop-color="#8c1226" />
+            </radialGradient>
+            <linearGradient id="stemGradient" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#1e4d2b" />
+              <stop offset="100%" stop-color="#3f8a52" />
+            </linearGradient>
+            <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Grupo del tallo y hojas -->
+          <g id="stem-group"></g>
+
+          <!-- Grupo de la flor (pétalos) -->
+          <g id="flower-group" transform="translate(200,190)"></g>
+        </svg>
+      </div>
+
+      <!-- Texto final -->
+      <div class="final-text" id="final-text">
+        <p class="final-line">I coded this for you</p>
+        <svg viewBox="0 0 100 100" class="mini-rose-svg mini-rose-svg--final">
+          <use href="#rose-icon-shape"></use>
+        </svg>
+      </div>
+
+      <!-- Bloque de Instagram -->
+      <a href="#" id="ig-link" class="ig-block" target="_blank" rel="noopener">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="4.6" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/>
+        </svg>
+        <span id="ig-username" class="ig-username">@tu_usuario</span>
+      </a>
+
+    </section>
+  </main>
+
+  <!-- Definición reutilizable del icono mini-rosa (usado en la tarjeta y en el texto final) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="rose-icon-shape">
+        <path d="M50 78 C50 78 30 55 30 40 C30 26 40 18 50 24 C60 18 70 26 70 40 C70 55 50 78 50 78 Z" fill="url(#petalGradientOuter)"/>
+        <path d="M50 68 C50 68 38 52 38 41 C38 32 44 27 50 31 C56 27 62 32 62 41 C62 52 50 68 50 68 Z" fill="url(#petalGradientInner)"/>
+        <path d="M50 78 L50 96" stroke="#3f8a52" stroke-width="3" stroke-linecap="round"/>
+        <path d="M50 88 C46 86 41 87 39 91" stroke="#3f8a52" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+      </g>
+    </defs>
+  </svg>
+
+  <script src="script.js"></script>
+</body>
+</html>
