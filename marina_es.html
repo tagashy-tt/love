@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,500&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1c1016;
+    --rose: #e8a0b4;
+    --gold: #f4d58d;
+    --blush: #f2c6c2;
+    --mist: #b39ea3;
+    --cream: #f5ece2;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; background: var(--ink); overflow-x:hidden; font-family:'Manrope', sans-serif; }
+  #bg{ position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
+  main{ position:relative; z-index:1; }
+  section{
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding: 10vh 6vw; text-align:center;
+  }
+  .lang-switch{
+    position:fixed; top: 1.6rem; left: 1.8rem; z-index:2;
+    display:flex; align-items:center; gap: 0.6rem;
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform:uppercase;
+    background: rgba(179,158,163,0.12);
+    border: 1px solid rgba(179,158,163,0.3);
+    padding: 0.55rem 1.1rem; border-radius: 999px;
+    backdrop-filter: blur(6px);
+  }
+  .lang-switch .current{ color: var(--rose); font-weight: 600; }
+  .lang-switch .sep{ color: rgba(179,158,163,0.4); }
+  .lang-switch a{
+    color: var(--mist); text-decoration:none;
+    transition: color 0.3s ease;
+  }
+  .lang-switch a:hover{ color: var(--gold); }
+
+  .eyebrow{
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--mist); margin-bottom: 1.4rem; opacity:0;
+  }
+
+  .hero-name{
+    font-family:'Playfair Display', serif; font-weight:600;
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    color: var(--cream); letter-spacing:0.02em;
+    opacity:0; animation: rise 1.8s ease forwards; animation-delay: 1.4s;
+    text-shadow: 0 0 50px rgba(232,160,180,0.3);
+  }
+  .hero-sub{
+    margin-top: 1.2rem; font-size: clamp(0.85rem, 2vw, 1.05rem);
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--mist);
+    opacity:0; animation: rise 1.8s ease forwards; animation-delay: 2s;
+  }
+  @keyframes rise{ from{ opacity:0; transform: translateY(18px);} to{ opacity:1; transform: translateY(0);} }
+  .scroll-hint{
+    position:absolute; bottom: 5vh; font-size: 0.72rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--mist); opacity:0;
+    animation: rise 1.8s ease forwards, float 3s ease-in-out infinite;
+    animation-delay: 2.6s, 2.6s;
+  }
+  @keyframes float{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-6px);} }
+
+  .letter{ max-width: 680px; display:flex; flex-direction:column; gap: 2.4rem; }
+  .line{
+    font-family:'Playfair Display', serif; font-style: italic; font-weight: 500;
+    font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--cream); line-height: 1.6;
+  }
+  .line .accent{ color: var(--rose); }
+
+  .reasons{ max-width: 620px; display:flex; flex-direction:column; gap: 1.8rem; }
+  .reason{ display:flex; gap: 1rem; align-items:flex-start; text-align:left; }
+  .reason .mark{ color: var(--gold); font-size: 1.1rem; line-height: 1.6; flex-shrink:0; }
+  .reason .txt{ font-family:'Playfair Display', serif; font-style: italic; color: var(--cream); font-size: clamp(1.05rem, 2.4vw, 1.3rem); }
+
+  .closing-text{
+    max-width: 620px; font-family:'Playfair Display', serif; font-style: italic;
+    font-size: clamp(1.4rem, 3.6vw, 2.1rem); color: var(--cream); line-height: 1.6;
+  }
+  .closing-sub{ margin-top: 1.6rem; color: var(--mist); font-size: 0.95rem; }
+
+  .fade-in{ opacity:0; transform: translateY(24px); transition: opacity 1.1s ease, transform 1.1s ease; }
+  .fade-in.visible{ opacity:1; transform: translateY(0); }
+
+  .signature{ display:flex; flex-direction:column; align-items:center; gap: 1.4rem; }
+  .sig-mark{ width: 44px; height: 44px; opacity: 0.85; }
+  .sig-name{ font-family:'Playfair Display', serif; font-style: italic; font-size: 1.35rem; color: var(--gold); }
+  .sig-date{ font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mist); }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-name, .hero-sub, .scroll-hint{ animation: none !important; opacity:1 !important; }
+    .fade-in{ transition:none !important; opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+<div class="lang-switch">
+  <a href="marina_ru.html">RU</a>
+  <span class="sep">|</span>
+  <span class="current">ES</span>
+</div>
+
+<main>
+  <section id="hero">
+    <h1 class="hero-name">Marina</h1>
+    <p class="hero-sub">tan lejos, tan cerca</p>
+      </section>
+
+  <section id="letter-1">
+    <p class="eyebrow fade-in">una carta</p>
+    <div class="letter">
+      <p class="line fade-in">Entre todo el ruido del mundo, encontré <span class="accent">tu calma</span>.</p>
+      <p class="line fade-in">Eres la luz en mi noche más oscura, sin importar el huso horario.</p>
+      <p class="line fade-in">Cada día a tu lado —aunque sea a través de una pantalla— es un regalo que no merezco, pero que guardo.</p>
+      <p class="line fade-in">Me enseñaste que el amor no se mide en kilómetros, sino en constancia.</p>
+    </div>
+  </section>
+
+  <section id="letter-2">
+    <p class="eyebrow fade-in">y sigue</p>
+    <div class="letter">
+      <p class="line fade-in">Marina, tú eres mi cielo, aunque lo miremos desde ciudades distintas.</p>
+      <p class="line fade-in">Aun lejos, sigues siendo lo más cercano que tengo.</p>
+      <p class="line fade-in">No eres perfecta —eres mejor: eres real, incluso en la distancia.</p>
+      <p class="line fade-in">Contigo no le temo al futuro, ni a los kilómetros que nos separan hoy.</p>
+    </div>
+  </section>
+
+  <section id="reasons">
+    <p class="eyebrow fade-in">por qué, a distancia</p>
+    <div class="reasons">
+      <div class="reason fade-in">
+        <span class="mark">✦</span>
+        <p class="txt">Por cada transmisión y llamada que se siente como estar en la misma habitación.</p>
+      </div>
+      <div class="reason fade-in">
+        <span class="mark">✦</span>
+        <p class="txt">Por contar los días que faltan para abrazarte y besarte.</p>
+      </div>
+      <div class="reason fade-in">
+        <span class="mark">✦</span>
+        <p class="txt">Por elegir esta distancia, cada día, sin dudarlo.</p>
+      </div>
+      <div class="reason fade-in">
+        <span class="mark">✦</span>
+        <p class="txt">Por esperar tu "buenos días" aunque para ti ya sea de noche.</p>
+      </div>
+      <div class="reason fade-in">
+        <span class="mark">✦</span>
+        <p class="txt">Por saber que ningún huso horario cambia lo que siento.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="closing">
+    <p class="eyebrow fade-in">para siempre</p>
+    <p class="closing-text fade-in">
+      Mientras haya estrellas, estaremos nosotros.<br>
+      No importa cuántos kilómetros nos separen.
+    </p>
+    <p class="closing-sub fade-in">te amo, Marina, hoy y siempre.</p>
+  </section>
+
+  <section id="sign">
+    <div class="signature fade-in">
+      <svg class="sig-mark" viewBox="0 0 46 46" fill="none">
+        <path d="M23 6 C23 6 26 16 34 18 C26 20 23 30 23 30 C23 30 20 20 12 18 C20 16 23 6 23 6 Z" stroke="#f4d58d" stroke-width="1" fill="none"/>
+        <circle cx="23" cy="18" r="1.4" fill="#f4d58d"/>
+      </svg>
+      <p class="sig-name">para ti, siempre</p>
+      <p class="sig-date">Tagashy</p>
+    </div>
+  </section>
+</main>
+
+<script>
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let w, h, orbs = [], drops = [];
+
+const ORB_COLORS = ['rgba(232,160,180,', 'rgba(244,213,141,', 'rgba(242,198,194,'];
+const PHRASES = ['te amo', 'para siempre', 'mi todo', 'siempre tú', '♥', 'te amo', 'contigo', 'te amo'];
+const RAIN_COLORS = ['#e8a0b4', '#f4d58d', '#f2c6c2'];
+
+function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = document.documentElement.scrollHeight; }
+window.addEventListener('resize', resize);
+resize();
+
+class Orb{
+  constructor(){ this.reset(); }
+  reset(){
+    this.x = Math.random()*w; this.y = Math.random()*h;
+    this.r = Math.random()*140 + 60;
+    this.vx = (Math.random()-0.5)*0.08; this.vy = (Math.random()-0.5)*0.08;
+    this.color = ORB_COLORS[Math.floor(Math.random()*ORB_COLORS.length)];
+    this.alpha = Math.random()*0.10 + 0.05; this.pulse = Math.random()*Math.PI*2;
+  }
+  step(){
+    this.x += this.vx; this.y += this.vy;
+    if(this.x < -this.r) this.x = w+this.r; if(this.x > w+this.r) this.x = -this.r;
+    if(this.y < -this.r) this.y = h+this.r; if(this.y > h+this.r) this.y = -this.r;
+    this.pulse += 0.006;
+  }
+  draw(){
+    const a = this.alpha + Math.sin(this.pulse)*0.02;
+    const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+    grad.addColorStop(0, this.color + a + ')'); grad.addColorStop(1, this.color + '0)');
+    ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fill();
+  }
+}
+
+class Drop{
+  constructor(recycle){ this.reset(recycle); }
+  reset(recycle){
+    this.x = Math.random()*w; this.y = recycle ? -40 : Math.random()*h;
+    this.speed = Math.random()*0.55 + 0.3; this.size = Math.random()*10 + 12;
+    this.text = PHRASES[Math.floor(Math.random()*PHRASES.length)];
+    this.color = RAIN_COLORS[Math.floor(Math.random()*RAIN_COLORS.length)];
+    this.baseAlpha = Math.random()*0.3 + 0.15; this.sway = Math.random()*0.6; this.swayOffset = Math.random()*Math.PI*2;
+  }
+  step(){ this.y += this.speed; this.swayOffset += 0.01; if(this.y > h + 40) this.reset(true); }
+  draw(){
+    const x = this.x + Math.sin(this.swayOffset)*this.sway*20;
+    ctx.font = `italic ${this.size}px 'Playfair Display', serif`;
+    ctx.fillStyle = this.color; ctx.globalAlpha = this.baseAlpha;
+    ctx.fillText(this.text, x, this.y); ctx.globalAlpha = 1;
+  }
+}
+
+function init(){
+  orbs = []; const orbCount = Math.floor((w*h) / 90000) + 6;
+  for(let i=0;i<orbCount;i++) orbs.push(new Orb());
+  drops = []; const dropCount = Math.floor((w*h) / 26000);
+  for(let i=0;i<dropCount;i++) drops.push(new Drop(false));
+}
+init();
+window.addEventListener('resize', ()=>{ resize(); init(); });
+
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = '#1c1016'; ctx.fillRect(0,0,w,h);
+  orbs.forEach(o=>{ o.step(); o.draw(); });
+  drops.forEach(d=>{ d.step(); d.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.25 });
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
